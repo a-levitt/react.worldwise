@@ -6,8 +6,6 @@ import PageNotFound from "./pages/PageNotFound.jsx";
 import AppLayout from "./pages/AppLayout.jsx";
 
 function App() {
-
-
   return (
     <BrowserRouter>
         <Routes>
