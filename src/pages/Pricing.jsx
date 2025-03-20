@@ -1,4 +1,4 @@
-import PageNav from "../components/PageNav.jsx";
+import PageNav from "../components/PageNav/PageNav.jsx";
 
 function Pricing() {
     return (
