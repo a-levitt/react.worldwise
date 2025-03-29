@@ -3,6 +3,7 @@ import {useParams} from "react-router-dom";
 import {useCities} from "../../contexts/CitiesContext.jsx";
 import {useEffect} from "react";
 import Spinner from "../Spinner/Spinner.jsx";
+import BackButton from "../Button/BackButton.jsx";
 
 const formatDate = (date) =>
   new Intl.DateTimeFormat("en", {
@@ -54,6 +55,10 @@ function City() {
             >
               Check out {cityName} on Wikipedia &rarr;
             </a>
+          </div>
+
+          <div>
+              <BackButton />
           </div>
       </div>
   );
