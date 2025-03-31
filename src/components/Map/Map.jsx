@@ -1,7 +1,7 @@
 import styles from './Map.module.css'
 import {useNavigate, useSearchParams} from "react-router-dom";
 import {MapContainer, Marker, Popup, TileLayer, useMap} from "react-leaflet";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useCities} from "../../contexts/CitiesContext.jsx";
 
 function Map() {
@@ -10,9 +10,13 @@ function Map() {
 
     const [mapPosition, setMapPosition] = useState([40, 0]);
 
-    const [searchParams, setSearchParams] = useSearchParams();
-    const mapLan = searchParams.get("lat");
+    const [searchParams] = useSearchParams();
+    const mapLat = searchParams.get("lat");
     const mapLng = searchParams.get("lng");
+
+    useEffect(() => {
+        if (mapLat && mapLng) setMapPosition([Number(mapLat), Number(mapLng)])
+    }, [mapLat, mapLng]);
 
     return (
         <div
@@ -23,8 +27,7 @@ function Map() {
         >
             <MapContainer
                 center={mapPosition}
-                //center={[Number(mapLan), Number(mapLng)]}
-                zoom={13}
+                zoom={7}
                 scrollWheelZoom={true}
                 className={styles.map}
             >
@@ -39,7 +42,7 @@ function Map() {
                     </Popup>
                 </Marker>)}
 
-                <ChangeCenter position={[Number(mapLan) || 38, Number(mapLng)] || -9} />
+                <ChangeCenter position={mapPosition} />
             </MapContainer>
         </div>
     )
