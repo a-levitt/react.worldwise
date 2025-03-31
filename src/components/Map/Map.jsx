@@ -1,6 +1,6 @@
 import styles from './Map.module.css'
 import {useNavigate, useSearchParams} from "react-router-dom";
-import {MapContainer, Marker, Popup, TileLayer} from "react-leaflet";
+import {MapContainer, Marker, Popup, TileLayer, useMap} from "react-leaflet";
 import {useState} from "react";
 import {useCities} from "../../contexts/CitiesContext.jsx";
 
@@ -11,8 +11,8 @@ function Map() {
     const [mapPosition, setMapPosition] = useState([40, 0]);
 
     const [searchParams, setSearchParams] = useSearchParams();
-    const lat = searchParams.get("lat");
-    const lng = searchParams.get("lng");
+    const mapLan = searchParams.get("lat");
+    const mapLng = searchParams.get("lng");
 
     return (
         <div
@@ -21,9 +21,13 @@ function Map() {
                 navigate("form");
             }}
         >
-            {lat != null && lng !== null && <h1>Position: {lat}, {lng}</h1>}
-
-            <MapContainer center={mapPosition} zoom={13} scrollWheelZoom={true} className={styles.map} >
+            <MapContainer
+                center={mapPosition}
+                //center={[Number(mapLan), Number(mapLng)]}
+                zoom={13}
+                scrollWheelZoom={true}
+                className={styles.map}
+            >
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
@@ -34,9 +38,17 @@ function Map() {
                         <span>{city.cityName}</span>
                     </Popup>
                 </Marker>)}
+
+                <ChangeCenter position={[Number(mapLan) || 38, Number(mapLng)] || -9} />
             </MapContainer>
         </div>
     )
+}
+
+function ChangeCenter({position}) {
+    const map = useMap();
+    map.setView(position);
+    return null;
 }
 
 export default Map;
