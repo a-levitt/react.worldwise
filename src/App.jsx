@@ -12,8 +12,6 @@ import Form from "./components/Form/Form.jsx";
 import {CitiesProvider} from "./contexts/CitiesContext.jsx";
 
 function App() {
-
-
   return (
     <CitiesProvider>
     <BrowserRouter>
