@@ -10,9 +10,11 @@ import CountryList from "./components/CountryList/CountryList.jsx";
 import City from "./components/City/City.jsx";
 import Form from "./components/Form/Form.jsx";
 import {CitiesProvider} from "./contexts/CitiesContext.jsx";
+import {AuthProvider} from "./contexts/FakeAuthContext.jsx";
 
 function App() {
   return (
+    <AuthProvider>
     <CitiesProvider>
     <BrowserRouter>
         <Routes>
@@ -31,6 +33,7 @@ function App() {
         </Routes>
     </BrowserRouter>
     </CitiesProvider>
+    </AuthProvider>
   )
 }
 
